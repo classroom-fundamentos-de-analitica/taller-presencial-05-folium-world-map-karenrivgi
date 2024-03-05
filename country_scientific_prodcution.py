@@ -51,12 +51,13 @@ def count_country_frequency(affiliations):
 
     return countries
 
-def countries_to_dataframe(countries):
+def countries_to_csv(countries):
     """Convierte la serie de países a un dataframe"""
 
     countries = countries.to_frame()
     countries = countries.reset_index()
-    countries.columns = ["countries", "count"]
+    countries.columns = ["country", "count"]
+    countries.to_csv("countries.csv", index=False)
 
     return countries
 
@@ -82,10 +83,9 @@ def main():
     affiliations = add_countries_column(affiliations)
     affiliations = clean_countries(affiliations)
     countries = count_country_frequency(affiliations)
-    countries = countries_to_dataframe(countries)
-    countries.to_csv("countries.csv", index=False)
+    countries_to_csv(countries)
     plot_world_map(countries)
-    
+
 
 if __name__ == "__main__":
     main()
